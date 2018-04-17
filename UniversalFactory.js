@@ -45,8 +45,6 @@ function addFromXMLDB(target, DBname, tagName) {
                 button.addEventListener("click", function () { // Open data in new window or normally.
                     if (this.classList.contains("pop")) {
                         data = this.firstElementChild.innerHTML;
-                        console.log("data: ");
-                        console.log(data);
                         dataInNewWindow(data);
                     } else {
                         this.classList.toggle("active");
@@ -67,11 +65,12 @@ function addFromXMLDB(target, DBname, tagName) {
 }
 
 function dataInNewWindow(data) {
-    console.log("doing new window");
     var newWindow = window.open("", Math.random(), "width=300,height=300,scrollbars=1,resizable=1");
     var content = "";
     var prefix = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>';
     var sufix = "</body></html>";
+    console.log("prefix:")
+    console.log(prefix);
     content += prefix;
     content += data;
     content += sufix;
