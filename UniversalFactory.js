@@ -66,7 +66,7 @@ function addFromXMLDB(target, DBname, tagName) {
 }
 
 function dataInNewWindow(data) {
-    var newWindow = window.open("", Math.random(), "width=300,height=300,scrollbars=1,resizable=1");
+    var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1");
     var content = "";
     content += data;
     console.log(content);
@@ -102,7 +102,7 @@ function makeToggleableButton(){
             toggle.innerHTML = "Normal display";
             toggle.addEventListener("click", function () {
                 this.classList.toggle("toggled");
-                toggle.innerHTML = "Window display";
+                toggle.innerHTML = (toggle.innerHTML=="Window display") ? ("Normal display") : ("Window display");
                 var buttons = document.getElementsByClassName("collapsible");
                 for (let k = 0; k < buttons.length; k++) {
                     buttons[k].classList.toggle("pop");
