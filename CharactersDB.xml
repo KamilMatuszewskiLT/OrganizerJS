@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<root>
+    <character name="John BonJovi" height="1.87" weight="78" unique="Has six fingers."/>
+    <character name="Ben Booth" height="1.97" weight="90" unique="Crooked nose."/>
+    <character name="John Dense" height="1.70" weight="73" unique="Exceptional common sense."/>
+    <character name="Mike Booth" height="1.27" weight="91" unique="Crooked nose." habit="Smoking"/>
+</root>
