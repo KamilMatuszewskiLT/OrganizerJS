@@ -44,7 +44,8 @@ function addFromXMLDB(target, DBname, tagName) {
 
                 button.addEventListener("click", function () { // Open data in new window or normally.
                     if (this.classList.contains("pop")) {
-                        data = this.firstElementChild.innerHTML;
+                        data = '<link rel="stylesheet" type="text/css" href="style.css">';
+                        data+= this.firstElementChild.innerHTML;
                         dataInNewWindow(data);
                     } else {
                         this.classList.toggle("active");
@@ -67,17 +68,11 @@ function addFromXMLDB(target, DBname, tagName) {
 function dataInNewWindow(data) {
     var newWindow = window.open("", Math.random(), "width=300,height=300,scrollbars=1,resizable=1");
     var content = "";
-    var prefix = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>';
-    var sufix = "</body></html>";
-    console.log("prefix:")
-    console.log(prefix);
-    content += prefix;
     content += data;
-    content += sufix;
+    console.log(content);
     newWindow.document.open();
     newWindow.document.write(content);
     newWindow.document.close();
-    
 }
 
 function makeInputFilter(target){
