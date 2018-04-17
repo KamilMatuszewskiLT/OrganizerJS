@@ -128,6 +128,13 @@ and open the template in the editor.
     	background-color: lightseagreen;
 }
 
+.mapImage{
+    max-height: 300px;
+    max-width: 300px;
+    display: box;
+    border: solid 1px black;
+}
+
   .accordion-toggle {cursor: pointer;}
   .accordion-content {display: none;}
   .accordion-content.default {display: block;}

@@ -2,6 +2,6 @@
 
 
 <root>
-    <location name="Forest of Tress" info="A forest." characters="A hunter (John BonJovi) and his family." sublocations="Hunter's hut" map="/forest.jpg"/>
-    <location name="Falcrest" info="A town." characters="Lots'a people." sublocations="Shops and stuff." map="/town.jpg"/>
+    <location name="Forest of Tress" info="A forest." characters="A hunter (John BonJovi) and his family." sublocations="Hunter's hut" map="/forest.png"/>
+    <location name="Falcrest" info="A town." characters="Lots'a people." sublocations="Shops and stuff." map="/forest.png"/>
 </root>
