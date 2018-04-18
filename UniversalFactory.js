@@ -11,14 +11,16 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
             
     dataTarget = (typeof dataTarget === 'undefined') ? 'default' : dataTarget;
     var xmlDocument = new XMLHttpRequest();
+    var dataContainer = document.createElement("div");
+    dataContainer.setAttribute("id", "dataContainer");
+    var allButtonsContainer = document.createElement("div");
+    allButtonsContainer.setAttribute("id", "allButtonsContainer");
+    var toggle = makeToggleableButton();
     xmlDocument.onreadystatechange = function () {
         //console.log("State " + this.readyState + " Status " + this.status);    
         if (this.readyState === 4 && this.status === 200) {
             var xmlDoc = xmlDocument.responseXML;
             var myObj = xmlDoc.getElementsByTagName(tagName);
-            
-            var toggle = makeToggleableButton();
-            document.getElementById(target).appendChild(toggle); // Add a button to toggle between window and normal display.
             
             
             for (let i = 0; i < myObj.length; i++) {
@@ -37,7 +39,7 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
                 checkbox.addEventListener("change", function () { // Open data in new window or under the list.
                     checkbox.classList.toggle("checked");
                     if (checkbox.classList.contains("checked")){
-                    document.getElementById(dataTarget).appendChild(content);              
+                    dataContainer.appendChild(content);              
                 } else {
                     document.getElementById(myObj[i].attributes[0].nodeValue).outerHTML="";
                 }
@@ -80,13 +82,18 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
                         dataInNewWindow(data);
                     }
                 });
-                document.getElementById(target).appendChild(container);
+                allButtonsContainer.appendChild(container);
             }
         }
+        
     };
+document.getElementById(target).appendChild(toggle); // Add a button to toggle between window and normal display.
+document.getElementById(target).appendChild(allButtonsContainer);
+document.getElementById(target).appendChild(dataContainer);
 
+    
     var filterInput = makeInputFilter(target, RECORD_CLASS_NAME);
-
+    
     document.getElementById("filterTxt").appendChild(filterInput);
     xmlDocument.open("GET", DBname, true);
     xmlDocument.send();

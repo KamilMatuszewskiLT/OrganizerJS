@@ -24,7 +24,7 @@ and open the template in the editor.
 }
 
 .NavBarElement{
-    float:center;
+    float: center;
     display: inline-block;
     padding:8px;
 }
@@ -44,8 +44,15 @@ and open the template in the editor.
 }
 
 #characterList{
-    display: box;
-    background-color: #81717A;
+    
+}
+
+#dataContainer{
+    clear:both;
+}
+
+#allButtonsContainer{
+    
 }
 
 #characterData{
