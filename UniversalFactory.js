@@ -1,4 +1,14 @@
-function addFromXMLDB(target, DBname, tagName) {
+/*
+ * addFromXMLDB
+ * Takes data of tagName from DBname and adds it as children to dataTarget - e.g.: all records of tagName "character" from database of characters.XML to a "charactersList" div.
+ * The target argument, is the e.g. <div> where the list of records is set.
+ */
+
+const RECORD_CLASS_NAME = "record";
+const BUTTON_CLASS_NAME = "recordNames";
+
+function addFromXMLDB(target, DBname, tagName, dataTarget) {
+    dataTarget = (typeof dataTarget === 'undefined') ? 'default' : dataTarget;
     var xmlDocument = new XMLHttpRequest();
     xmlDocument.onreadystatechange = function () {
         //console.log("State " + this.readyState + " Status " + this.status);    
@@ -8,18 +18,18 @@ function addFromXMLDB(target, DBname, tagName) {
             
             var toggle = makeToggleableButton();
             document.getElementById(target).appendChild(toggle); // Add a button to toggle between window and normal display.
-
+            document.getElementById(target).innerHTML += "<br/>";
             for (let i = 0; i < myObj.length; i++) {
 
-                var button = document.createElement("button");
-                button.setAttribute("class", "collapsible");
+                let button = document.createElement("button");
+                button.setAttribute("class", BUTTON_CLASS_NAME);
                 button.innerHTML = myObj[i].attributes[0].nodeValue;
 
-                var content = document.createElement("div");
+                let content = document.createElement("div");
                 content.setAttribute("class", "content");
 
-                var record = document.createElement("p");
-                record.setAttribute("class", "Record");
+                let record = document.createElement("p");
+                record.setAttribute("class", RECORD_CLASS_NAME);
 
                 for (let j = 0; j < myObj[i].attributes.length; j++) { // Create an element for each XML attribute.
                     if(myObj[i].attributes[j].nodeName === "map"){
@@ -36,20 +46,18 @@ function addFromXMLDB(target, DBname, tagName) {
                     record.appendChild(nameD);
                 }
                     record.appendChild(name);
-                    
                 }
 
                 content.appendChild(record);
-                button.appendChild(content);
-
-                button.addEventListener("click", function () { // Open data in new window or normally.
+                
+                button.addEventListener("click", function () { // Open data in new window or under the list.
                     if (this.classList.contains("pop")) {
                         data = '<link rel="stylesheet" type="text/css" href="style.css">';
-                        data+= this.firstElementChild.innerHTML;
+                        data+= record.innerHTML;
                         dataInNewWindow(data);
                     } else {
-                        this.classList.toggle("active");
-                        this.firstElementChild.style.display = this.firstElementChild.style.display === "block" ? "none" : "block";
+                        document.getElementById(dataTarget).innerHTML = "";
+                        document.getElementById(dataTarget).appendChild(content);
                     }
                 });
                 document.getElementById(target).appendChild(button);
@@ -57,7 +65,7 @@ function addFromXMLDB(target, DBname, tagName) {
         }
     };
 
-    var filterInput = makeInputFilter(target);
+    var filterInput = makeInputFilter(target, RECORD_CLASS_NAME);
 
     document.getElementById("filterTxt").appendChild(filterInput);
     xmlDocument.open("GET", DBname, true);
@@ -69,13 +77,12 @@ function dataInNewWindow(data) {
     var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1");
     var content = "";
     content += data;
-    console.log(content);
     newWindow.document.open();
     newWindow.document.write(content);
     newWindow.document.close();
 }
 
-function makeInputFilter(target){
+function makeInputFilter(target, recordsClass){
     var filterInput = document.createElement("input");
     filterInput.setAttribute("type", "text");
     filterInput.setAttribute("id", "input");
@@ -85,7 +92,7 @@ function makeInputFilter(target){
         input = document.getElementById('input');
         filter = input.value.toUpperCase();
         ul = document.getElementById(target);
-        li = ul.getElementsByClassName('collapsible');
+        li = ul.getElementsByClassName(recordsClass);
 
         // Loop through all list items, and hide those which don't match the search query
         for (i = 0; i < li.length; i++) {
@@ -102,8 +109,8 @@ function makeToggleableButton(){
             toggle.innerHTML = "Normal display";
             toggle.addEventListener("click", function () {
                 this.classList.toggle("toggled");
-                toggle.innerHTML = (toggle.innerHTML=="Window display") ? ("Normal display") : ("Window display");
-                var buttons = document.getElementsByClassName("collapsible");
+                toggle.innerHTML = (toggle.innerHTML === "Window display") ? ("Normal display") : ("Window display");
+                var buttons = document.getElementsByClassName(BUTTON_CLASS_NAME);
                 for (let k = 0; k < buttons.length; k++) {
                     buttons[k].classList.toggle("pop");
                 }

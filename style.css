@@ -79,29 +79,19 @@ and open the template in the editor.
     border-right: none;
 }
  /* Style the button that is used to open and close the collapsible content */
-.collapsible {
+.recordNames {
   background-color: #eee;
   color: #444;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
+  width: 15%;
   border: none;
   outline: none;
   font-size: 15px;
   border: solid 1px;
-  text-align: left;
+  text-align: center;
 }
-.collapsibleNot{
-  background-color: #eee;
-  color: #444;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  border: solid 1px;
-  text-align: left;
-}
+
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
   background-color: #ccc;
@@ -110,13 +100,8 @@ and open the template in the editor.
 /* Style the collapsible content. Note: hidden by default */
 .content {
   border: solid 1px;
-  display: none;
+  display: box;
   overflow: hidden;
-  background-color: #f1f1f1;
-} 
-.contentNot {
-  border: solid 1px;
-  display: block;
   background-color: #f1f1f1;
 } 
 
