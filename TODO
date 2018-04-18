@@ -1,2 +1,1 @@
-Refactor
-Unit tests
+Use only one div in target page (e.g. locations or characters), create whole structure inside .js function.

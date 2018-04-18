@@ -8,6 +8,7 @@ const RECORD_CLASS_NAME = "record";
 const BUTTON_CLASS_NAME = "recordNames";
 
 function addFromXMLDB(target, DBname, tagName, dataTarget) {
+            
     dataTarget = (typeof dataTarget === 'undefined') ? 'default' : dataTarget;
     var xmlDocument = new XMLHttpRequest();
     xmlDocument.onreadystatechange = function () {
@@ -18,17 +19,36 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
             
             var toggle = makeToggleableButton();
             document.getElementById(target).appendChild(toggle); // Add a button to toggle between window and normal display.
-            var br = document.createElement("br");
-            document.getElementById(target).appendChild(br);
+            
             
             for (let i = 0; i < myObj.length; i++) {
 
+                let container = document.createElement("div");
+                container.setAttribute("class", "buttonContainer");
+                
                 let button = document.createElement("button");
                 button.setAttribute("class", BUTTON_CLASS_NAME);
-                button.innerHTML = myObj[i].attributes[0].nodeValue;
+                button.innerHTML = myObj[i].attributes[1].nodeValue;
+                
+                let checkbox = document.createElement("input");
+                checkbox.setAttribute("type", "checkbox");
+                checkbox.setAttribute("class", "recordChk");
 
+                checkbox.addEventListener("change", function () { // Open data in new window or under the list.
+                    checkbox.classList.toggle("checked");
+                    if (checkbox.classList.contains("checked")){
+                    document.getElementById(dataTarget).appendChild(content);              
+                } else {
+                    document.getElementById(myObj[i].attributes[0].nodeValue).outerHTML="";
+                }
+                });
+
+                container.appendChild(button);
+                container.appendChild(checkbox);
+                
                 let content = document.createElement("div");
                 content.setAttribute("class", "content");
+                content.setAttribute("id", myObj[i].attributes[0].nodeValue);
 
                 let record = document.createElement("div");
                 record.setAttribute("class", RECORD_CLASS_NAME);
@@ -36,9 +56,7 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
                 for (let j = 0; j < myObj[i].attributes.length; j++) { // Create an element for each XML attribute.
                     if(myObj[i].attributes[j].nodeName === "map"){
                          var name = makeMapHref(myObj[i].attributes[j].nodeValue);
-                    } if(myObj[i].attributes[j].nodeName === "home"){
-                                                
-                    }else {
+                    } else {
                     var name = document.createElement("div");
                     name.setAttribute("class", "dataField");
                     name.innerHTML = myObj[i].attributes[j].nodeValue;
@@ -54,18 +72,15 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
 
                 content.appendChild(record);
                 
-                button.addEventListener("click", function () { // Open data in new window or under the list.
+                button.addEventListener("click", function () { // Open data in new window.
                     if (this.classList.contains("pop")) {
                         data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>';
                         data += content.innerHTML;
                         data += '</body></html>';
                         dataInNewWindow(data);
-                    } else {
-                        document.getElementById(dataTarget).innerHTML = "";
-                        document.getElementById(dataTarget).appendChild(content);
                     }
                 });
-                document.getElementById(target).appendChild(button);
+                document.getElementById(target).appendChild(container);
             }
         }
     };
@@ -132,3 +147,4 @@ function makeMapHref(link){
      mapAElement .appendChild(href);
     return  mapAElement ;
 }
+

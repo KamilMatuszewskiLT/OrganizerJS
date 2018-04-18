@@ -43,6 +43,15 @@ and open the template in the editor.
     border: none;
 }
 
+#characterList{
+    display: box;
+    background-color: #81717A;
+}
+
+#characterData{
+    display: box;
+}
+
 .charRecord{
     display: block;
     margin: 0;
@@ -52,7 +61,6 @@ and open the template in the editor.
 }
 .dataType{
     color: #7F636E ;
-    display: table-cell;
     padding-left: 10px;
     padding-right: 10px;
     padding: 4px;
@@ -60,7 +68,6 @@ and open the template in the editor.
 }
 .dataField{
     color: #7F636E;
-    display: table-cell;
     padding-left: 5px;
     padding-right: 10px;
     padding: 4px;
@@ -82,19 +89,21 @@ and open the template in the editor.
 }
  /* Style the button that is used to open and close the collapsible content */
 .recordNames {
-  background-color: #eee;
   color: #444;
   cursor: pointer;
-  padding: 12px;
+  padding: 4px;
   margin: 1px;
-  width: 15%;
   border: none;
   outline: none;
   font-size: 15px;
-  border: solid 1px;
   text-align: center;
 }
-
+.buttonContainer {
+  float: left;
+  background-color: #eee;
+  border: solid 1px;
+  width: auto;
+}
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
   background-color: #ccc;
@@ -102,8 +111,9 @@ and open the template in the editor.
 
 /* Style the collapsible content. Note: hidden by default */
 .content {
-  display: box;
   overflow: hidden;
+  display: inline-block;
+  float: left;
 } 
 
 .toggleButton{
@@ -126,6 +136,10 @@ and open the template in the editor.
 }
 .record{
     padding: 2px;
+}
+
+.recordChk{
+    
 }
 
   .accordion-toggle {cursor: pointer;}

@@ -2,20 +2,7 @@
 
 
 <root>
-    <character name="John BonJovi" height="1.87" weight="78" unique="Has six fingers." home="Falcrest"/>
-    <character name="John BonJovi" height="1.87" weight="78" unique="Has six fingers."/>
-    <character name="Ben Booth" height="1.97" weight="90" unique="Crooked nose."/>
-    <character name="John Dense" height="1.70" weight="73" unique="Exceptional common sense."/>
-    <character name="Mike Booth" height="1.27" weight="91" unique="Crooked nose." habit="Smoking"/>
-    <character name="John BonJovi" height="1.87" weight="78" unique="Has six fingers."/>
-    <character name="Ben Booth" height="1.97" weight="90" unique="Crooked nose."/>
-    <character name="John Dense" height="1.70" weight="73" unique="Exceptional common sense."/>
-    <character name="Mike Booth" height="1.27" weight="91" unique="Crooked nose." habit="Smoking"/>
-    <character name="John BonJovi" height="1.87" weight="78" unique="Has six fingers."/>
-    <character name="Ben Booth" height="1.97" weight="90" unique="Crooked nose."/>
-    <character name="John Dense" height="1.70" weight="73" unique="Exceptional common sense."/>
-    <character name="Mike Booth" height="1.27" weight="91" unique="Crooked nose." habit="Smoking"/>
-    <character name="Ben Booth" height="1.97" weight="90" unique="Crooked nose."/>
-    <character name="John Dense" height="1.70" weight="73" unique="Exceptional common sense."/>
-    <character name="Mike Booth" height="1.27" weight="91" unique="Crooked nose." habit="Smoking"/>
+    <character id="1" name="John BonJovi" height="1.87" weight="78" unique="Has six fingers." home="Falcrest"/>
+    <character id="2" name="John BonJovi" height="1.87" weight="78" unique="Has six fingers."/>
+    <character id="3" name="Ben Booth" height="1.97" weight="90" unique="Crooked nose."/>
 </root>
