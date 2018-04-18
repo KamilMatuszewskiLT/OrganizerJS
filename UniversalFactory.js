@@ -18,7 +18,9 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
             
             var toggle = makeToggleableButton();
             document.getElementById(target).appendChild(toggle); // Add a button to toggle between window and normal display.
-            document.getElementById(target).innerHTML += "<br/>";
+            var br = document.createElement("br");
+            document.getElementById(target).appendChild(br);
+            
             for (let i = 0; i < myObj.length; i++) {
 
                 let button = document.createElement("button");
@@ -28,13 +30,15 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
                 let content = document.createElement("div");
                 content.setAttribute("class", "content");
 
-                let record = document.createElement("p");
+                let record = document.createElement("div");
                 record.setAttribute("class", RECORD_CLASS_NAME);
 
                 for (let j = 0; j < myObj[i].attributes.length; j++) { // Create an element for each XML attribute.
                     if(myObj[i].attributes[j].nodeName === "map"){
-                        var name = makeMapHref(myObj[i].attributes[j].nodeValue);
-                    } else {
+                         var name = makeMapHref(myObj[i].attributes[j].nodeValue);
+                    } if(myObj[i].attributes[j].nodeName === "home"){
+                                                
+                    }else {
                     var name = document.createElement("div");
                     name.setAttribute("class", "dataField");
                     name.innerHTML = myObj[i].attributes[j].nodeValue;
@@ -52,8 +56,9 @@ function addFromXMLDB(target, DBname, tagName, dataTarget) {
                 
                 button.addEventListener("click", function () { // Open data in new window or under the list.
                     if (this.classList.contains("pop")) {
-                        data = '<link rel="stylesheet" type="text/css" href="style.css">';
-                        data+= record.innerHTML;
+                        data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>';
+                        data += content.innerHTML;
+                        data += '</body></html>';
                         dataInNewWindow(data);
                     } else {
                         document.getElementById(dataTarget).innerHTML = "";
