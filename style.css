@@ -44,7 +44,8 @@ and open the template in the editor.
 }
 
 #characterList{
-    
+    clear: both;
+    padding: 1px;
 }
 
 #dataContainer{
@@ -52,7 +53,7 @@ and open the template in the editor.
 }
 
 #allButtonsContainer{
-    
+   clear: both;
 }
 
 #characterData{

@@ -154,4 +154,3 @@ function makeMapHref(link){
      mapAElement .appendChild(href);
     return  mapAElement ;
 }
-

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <root>
     <location name="Forest of dsadsadTress" info="A forest." characters="A hunter (John BonJovi) and his family." sublocations="Hunter's hut" map="/forest.png"/>
     <location name="Falcrest" info="A town." characters="Lots'a people." sublocations="Shops and stuff." map="/forest.png"/>
