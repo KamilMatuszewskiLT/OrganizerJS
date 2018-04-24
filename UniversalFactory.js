@@ -8,6 +8,7 @@ const RECORD_CLASS_NAME = "record";
 const BUTTON_CLASS_NAME = "recordNames";
 
 function addFromXMLDB (target, DBname, tagName) {
+   
     var xmlDocument = new XMLHttpRequest();
     var dataContainer = document.createElement("div");
     dataContainer.setAttribute("id", "dataContainer");
@@ -19,7 +20,7 @@ function addFromXMLDB (target, DBname, tagName) {
         if (this.readyState === 4 && this.status === 200) {
             var xmlDoc = xmlDocument.responseXML;
             var myObj = xmlDoc.getElementsByTagName(tagName);
-                        
+            
             for (let i = 0; i < myObj.length; i++) {
                                 
                 let container = document.createElement("div");
@@ -150,4 +151,4 @@ function makeMapHref(link) {
     href.setAttribute('class', 'mapImage');
     mapAElement.appendChild(href);
     return  mapAElement;
-}    
+}  

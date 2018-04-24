@@ -4,7 +4,30 @@
  * e.g.: all records of tagName "character" from database of characters.XML to a object with properties corresponding to those from database.
  */
 
-function CreateObjectsFromDB(DBname, tagName){
+var objectsFromDB = (function () {
+
+    var instance;
+    return {
+        getInstance: function () {
+            if (instance === null) {
+                instance = new objectsFromDB();
+                // Hide the constructor so the returned objected can't be new'd...
+                instance.constructor = null;
+            }
+            return instance;
+        }
+    };
+    var allObjects = {
+        characters: function () {
+            return CreateObjectsFromDB('CharactersDB.xml', 'character');
+        },
+        locations: function () {
+            return CreateObjectsFromDB('LocationsDB.xml', 'locations');
+        }
+    };
+});
+
+function CreateObjectsFromDB(DBname, tagName) {
     var charFactory = new Factory();
     var xmlDocument = new XMLHttpRequest();
     var newObject = {};
@@ -22,16 +45,15 @@ function CreateObjectsFromDB(DBname, tagName){
 }
 
 function Factory() {
-    
+
     this.createObject = function (data) {
         var newObject = {};
         for (let i = 0; i < data.length; i++) {
-            for (let j=0; j < data[i].attributes.length; j++){
+            for (let j = 0; j < data[i].attributes.length; j++) {
                 console.log("data[i].nodeName: " + data[i].attributes[j].nodeName + " | " + "data[i].nodeValue: " + data[i].attributes[j].nodeValue);
                 newObject[data[i].attributes[j].nodeName] = data[i].attributes[j].nodeValue;
             }
         }
         return newObject;
     };
-
 }
