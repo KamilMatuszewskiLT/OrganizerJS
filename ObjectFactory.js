@@ -4,9 +4,21 @@
  * e.g.: all records of tagName "character" from database of characters.XML to a object with properties corresponding to those from database.
  */
 
-var objectsFromDB = (function () {
+function TestFunction() {
+    var test = objectsFromDB().getInstance;
+    for (let i = 0; i < test.Characters.length; i++) {
+        console.log(test.Characters.values(i));
+    }
+}
 
+var objectsFromDB = function () {
     var instance;
+    var characters = CreateObjectsFromDB('CharactersDB.xml', 'character');
+    var locations = CreateObjectsFromDB('LocationsDB.xml', 'locations');
+
+    Characters = function(){return this.characters;};
+    Locations = function(){return this.locations;};
+
     return {
         getInstance: function () {
             if (instance === null) {
@@ -17,15 +29,7 @@ var objectsFromDB = (function () {
             return instance;
         }
     };
-    var allObjects = {
-        characters: function () {
-            return CreateObjectsFromDB('CharactersDB.xml', 'character');
-        },
-        locations: function () {
-            return CreateObjectsFromDB('LocationsDB.xml', 'locations');
-        }
-    };
-});
+};
 
 function CreateObjectsFromDB(DBname, tagName) {
     var charFactory = new Factory();
@@ -56,4 +60,4 @@ function Factory() {
         }
         return newObject;
     };
-}
+} 
