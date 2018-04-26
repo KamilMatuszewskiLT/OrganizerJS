@@ -7,6 +7,7 @@
 const RECORD_CLASS_NAME = "record";
 const BUTTON_CLASS_NAME = "recordNames";
 const CONTAINER_CLASS_NAME = "buttonContainer";
+const CLICKED_CHECKBOX_CLASS_NAME = "checked";
 
 function addFromXMLDB(target, DBname, tagName) {
 
@@ -16,6 +17,7 @@ function addFromXMLDB(target, DBname, tagName) {
     var allButtonsContainer = document.createElement("div");
     allButtonsContainer.setAttribute("id", "allButtonsContainer");
     var toggle = makeToggleableButton();
+    var chkbReset = makeChkbxReset();
     xmlDocument.onreadystatechange = function () {
         //console.log("State " + this.readyState + " Status " + this.status);    
         if (this.readyState === 4 && this.status === 200) {
@@ -36,8 +38,8 @@ function addFromXMLDB(target, DBname, tagName) {
                 checkbox.setAttribute("class", "recordChk");
 
                 checkbox.addEventListener("change", function () { // Open data in new window or under the list.
-                    checkbox.classList.toggle("checked");
-                    if (checkbox.classList.contains("checked")) {
+                    checkbox.classList.toggle(CLICKED_CHECKBOX_CLASS_NAME);
+                    if (checkbox.classList.contains(CLICKED_CHECKBOX_CLASS_NAME)) {
                         dataContainer.appendChild(content);
                     } else {
                         document.getElementById(myObj[i].attributes[0].nodeValue).outerHTML = "";
@@ -89,9 +91,10 @@ function addFromXMLDB(target, DBname, tagName) {
 
     };
     document.getElementById(target).appendChild(toggle); // Add a button to toggle between window and normal display.
+    document.getElementById(target).appendChild(chkbReset);
     document.getElementById(target).appendChild(allButtonsContainer);
     document.getElementById(target).appendChild(dataContainer);
-
+    
 
     var filterInput = makeInputFilter(target, CONTAINER_CLASS_NAME);
 
@@ -177,3 +180,17 @@ function makeMapHref(link) {
     return  imgAndModal;
 }
 
+function makeChkbxReset(){
+    var reset = document.createElement("button");
+    reset.setAttribute("class","checkBoxResetButton");
+    reset.innerHTML="Reset";
+    reset.addEventListener("click", function(){
+        let checked = document.getElementsByClassName(CLICKED_CHECKBOX_CLASS_NAME);
+        console.log("This many checked " + (checked.length+1) );
+        for (let i = 0 ; i < checked.length ;){ // Don't increase the iterator (the "let i"), since the length decreases with each iteration, so it goes down to zero.
+            checked[i].click();
+           }
+    });
+    
+    return reset;
+}
