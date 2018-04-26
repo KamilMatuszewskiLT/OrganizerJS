@@ -79,9 +79,10 @@ function addFromXMLDB(target, DBname, tagName) {
 
                 button.addEventListener("click", function () { // Open data in new window.
                     if (this.classList.contains("pop")) {
-                        data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>';
+                       // data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"><script src="UniversalFactory.js"></script></head><body>';
+                        data = '<link rel="stylesheet" type="text/css" href="style.css">';
                         data += content.innerHTML;
-                        data += '</body></html>';
+                        //data += '</body></html>';
                         dataInNewWindow(data);
                     }
                 });
@@ -105,12 +106,13 @@ function addFromXMLDB(target, DBname, tagName) {
 }
 
 function dataInNewWindow(data) {
-    var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1,channelmode=1, menubar=0");
+    var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1,channelmode=1, menubar=0"); // the "Math.random() is there, to open in a new window, although I guess there's still a chance that it returns the same number.
     var content = "";
     content += data;
     newWindow.document.open();
     newWindow.document.write(content);
     newWindow.document.close();
+    newWindow.focus();
 }
 
 function makeInputFilter(target, CONTAINER_CLASS_NAME) {
