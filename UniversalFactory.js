@@ -6,6 +6,7 @@
 
 const RECORD_CLASS_NAME = "record";
 const BUTTON_CLASS_NAME = "recordNames";
+const CONTAINER_CLASS_NAME = "buttonContainer";
 
 function addFromXMLDB(target, DBname, tagName) {
 
@@ -24,7 +25,7 @@ function addFromXMLDB(target, DBname, tagName) {
             for (let i = 0; i < myObj.length; i++) {
 
                 let container = document.createElement("div");
-                container.setAttribute("class", "buttonContainer");
+                container.setAttribute("class", CONTAINER_CLASS_NAME);
 
                 let button = document.createElement("button");
                 button.setAttribute("class", BUTTON_CLASS_NAME);
@@ -92,7 +93,7 @@ function addFromXMLDB(target, DBname, tagName) {
     document.getElementById(target).appendChild(dataContainer);
 
 
-    var filterInput = makeInputFilter(target, RECORD_CLASS_NAME);
+    var filterInput = makeInputFilter(target, CONTAINER_CLASS_NAME);
 
     document.getElementById("filterTxt").appendChild(filterInput);
     xmlDocument.open("GET", DBname, true);
@@ -109,17 +110,17 @@ function dataInNewWindow(data) {
     newWindow.document.close();
 }
 
-function makeInputFilter(target, recordsClass) {
+function makeInputFilter(target, CONTAINER_CLASS_NAME) {
     var filterInput = document.createElement("input");
     filterInput.setAttribute("type", "text");
     filterInput.setAttribute("id", "input");
 
     filterInput.addEventListener("input", function () { // Filter data function.
         var input, filter, ul, li, a, i;
-        input = document.getElementById('input');
+        input = filterInput;
         filter = input.value.toUpperCase();
         ul = document.getElementById(target);
-        li = ul.getElementsByClassName(recordsClass);
+        li = ul.getElementsByClassName(CONTAINER_CLASS_NAME);
 
         // Loop through all list items, and hide those which don't match the search query
         for (i = 0; i < li.length; i++) {
