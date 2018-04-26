@@ -7,8 +7,8 @@
 const RECORD_CLASS_NAME = "record";
 const BUTTON_CLASS_NAME = "recordNames";
 
-function addFromXMLDB (target, DBname, tagName) {
-   
+function addFromXMLDB(target, DBname, tagName) {
+
     var xmlDocument = new XMLHttpRequest();
     var dataContainer = document.createElement("div");
     dataContainer.setAttribute("id", "dataContainer");
@@ -20,9 +20,9 @@ function addFromXMLDB (target, DBname, tagName) {
         if (this.readyState === 4 && this.status === 200) {
             var xmlDoc = xmlDocument.responseXML;
             var myObj = xmlDoc.getElementsByTagName(tagName);
-            
+
             for (let i = 0; i < myObj.length; i++) {
-                                
+
                 let container = document.createElement("div");
                 container.setAttribute("class", "buttonContainer");
 
@@ -54,8 +54,10 @@ function addFromXMLDB (target, DBname, tagName) {
                 record.setAttribute("class", RECORD_CLASS_NAME);
 
                 for (let j = 0; j < myObj[i].attributes.length; j++) { // Create an element for each XML attribute.
-                    if (myObj[i].attributes[j].nodeName === "map") {
-                        var name = makeMapHref(myObj[i].attributes[j].nodeValue);
+                    if (myObj[i].attributes[j].nodeName === "image") {
+                        var imgAndModal = makeMapHref(myObj[i].attributes[j].nodeValue);
+                        record.appendChild(imgAndModal[0]);
+                        record.appendChild(imgAndModal[1]);
                     } else {
                         var name = document.createElement("div");
                         name.setAttribute("class", "dataField");
@@ -66,8 +68,8 @@ function addFromXMLDB (target, DBname, tagName) {
                         nameD.innerHTML = nodeName.charAt(0).toUpperCase() + nodeName.slice(1) + ":"; // Capitalize each XML name.
 
                         record.appendChild(nameD);
+                        record.appendChild(name);
                     }
-                    record.appendChild(name);
                 }
 
                 content.appendChild(record);
@@ -99,7 +101,7 @@ function addFromXMLDB (target, DBname, tagName) {
 }
 
 function dataInNewWindow(data) {
-    var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1");
+    var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1,channelmode=1, menubar=0");
     var content = "";
     content += data;
     newWindow.document.open();
@@ -144,11 +146,33 @@ function makeToggleableButton() {
 }
 
 function makeMapHref(link) {
+    var imgAndModal = [];
     var mapAElement = document.createElement("a");
-    mapAElement.setAttribute('href', 'images' + link);
     var href = document.createElement("img");
     href.setAttribute('src', 'images' + link);
     href.setAttribute('class', 'mapImage');
+    
+    var modal = document.createElement("div");
+    modal.setAttribute("class", "modal");
+    var closeBtn = document.createElement("span");
+    closeBtn.setAttribute("class", "close");
+    closeBtn.innerHTML = "&times;";
+    var modalContent = document.createElement("img");
+    modalContent.setAttribute("class", "modal-content");
+    
+    href.onclick = function () {
+        modal.style.display = "block";
+        modalContent.src = this.src;
+    };
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    };
+    
+    modal.appendChild(closeBtn);
+    modal.appendChild(modalContent);
     mapAElement.appendChild(href);
-    return  mapAElement;
-}  
+    imgAndModal.push(mapAElement);
+    imgAndModal.push(modal);
+    return  imgAndModal;
+}
+

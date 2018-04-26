@@ -7,6 +7,17 @@ and open the template in the editor.
     Created on : 2018-04-09, 09:20:27
     Author     : Kamil Matuszewski
 */
+body{
+    font-family: Arial;
+}
+#siteContent{
+    border-left: dotted black 1px;
+    border-right: dotted black 1px;
+    margin-left: 150px;
+    padding-left: 50px;
+    margin-right: 150px;
+    background-color: ghostwhite;
+}
 
 #PageTitle{
     font-size: 20px;
@@ -24,7 +35,6 @@ and open the template in the editor.
 }
 
 .NavBarElement{
-    float: center;
     display: inline-block;
     padding:8px;
 }
@@ -37,6 +47,10 @@ and open the template in the editor.
     color: #B4D4EE;
 }
 
+.NavBarDateTime{
+    display: inline-block;
+    padding:8px;
+}
 #navIFrame{
     width:100%;
     height:1000px;
@@ -45,7 +59,7 @@ and open the template in the editor.
 
 #characterList{
     clear: both;
-    padding: 1px;
+    padding: 2px;
 }
 
 #dataContainer{
@@ -53,7 +67,7 @@ and open the template in the editor.
 }
 
 #allButtonsContainer{
-   clear: both;
+    clear: both;
 }
 
 #characterData{
@@ -72,14 +86,25 @@ and open the template in the editor.
     padding-left: 10px;
     padding-right: 10px;
     padding: 4px;
-    background-color: #f1f1f1;
+    background-color: antiquewhite;
+    border-bottom: dotted 1px black;
+    margin: 2px;
+}
+.dataType:not(:first-child){
+    border-top: dotted 1px black;
 }
 .dataField{
     color: #7F636E;
     padding-left: 5px;
     padding-right: 10px;
     padding: 4px;
-    background-color: #f3f4e1;
+    background-color: beige;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.dataField::nth-child(2){
+    border-bottom: dotted 1px black;
 }
 
 .inputFields{
@@ -89,68 +114,135 @@ and open the template in the editor.
     padding-right: 10px;
     border-right: solid 5px white;
     align:left;
-    
 }
 
 .charRecord .dataField:last-child{
     border-right: none;
 }
- /* Style the button that is used to open and close the collapsible content */
+
 .recordNames {
-  color: #444;
-  cursor: pointer;
-  padding: 4px;
-  margin: 1px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  text-align: center;
+    color: #444;
+    cursor: pointer;
+    padding: 4px;
+    margin: 1px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+    border-right: dotted 1px black;
+    width: 300px; /* width of .record - 24px */
 }
-.buttonContainer {
-  float: left;
-  background-color: #eee;
-  border: solid 1px;
-  width: auto;
-}
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  overflow: hidden;
-  display: inline-block;
-  float: left;
-} 
-
-.toggleButton{
-    	background-color: lightcoral;
-        cursor: pointer;
-        width: 110px;
-        height: 30px;
-        overflow: hidden;
-}
-
-.toggled{
-    	background-color: lightseagreen;
+.record{
+    width: 324px; /* width of .record + 24px */
+    margin: 4px;
+    border: solid 1px black;
+    background-color: antiquewhite;
 }
 
 .mapImage{
-    max-height: 300px;
-    max-width: 300px;
-    display: box;
-    border: solid 1px black;
-}
-.record{
-    padding: 2px;
-}
-
-.recordChk{
-    
+    height: auto; /* width of .record width */
+    max-width: 285px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    border: dotted black 1px;
 }
 
-  .accordion-toggle {cursor: pointer;}
-  .accordion-content {display: none;}
-  .accordion-content.default {display: block;}
+.buttonContainer {
+    float: left;
+    background-color: beige;
+    margin: 4px;
+    border: 1px solid black;
+    padding-right: 2px;
+}
+
+
+.content {
+    overflow: hidden;
+    display: inline-block;
+    font-family: Arial;
+    float: none; 
+} 
+
+.toggleButton{
+    background-color: lightcoral;
+    cursor: pointer;
+    width: 120px;
+    height: 36px;
+    overflow: hidden;
+    border:none;
+    margin:2px;
+    margin-bottom: 4px;
+    font-size: 0.92em;
+    font-family: Arial;
+}
+
+.toggled{
+    background-color: lightseagreen;
+}
+
+ /* Style the Image Used to Trigger the Modal */
+.mapImage{
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.mapImage:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+} 
+
 

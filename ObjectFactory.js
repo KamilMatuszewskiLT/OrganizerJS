@@ -1,31 +1,30 @@
-/*
+/*\
  * CreateObjectsFromDB
  * Takes data of tagName from DBname and returns them as an object of the same structure:
  * e.g.: all records of tagName "character" from database of characters.XML to a object with properties corresponding to those from database.
- */
+\*/
 
 function TestFunction() {
-    objectsFromDB.getInstance(function (test) {
+   test = objectsFromDB.getInstance();
         console.log("Instance hook created.");
         console.log(test.characters());
         for (let i = 0; i < test.characters.getData.length; i++) {
             console.log(test.Characters.values());
         }
-    });
+    
 }
 
 var objectsFromDB = (function () {
     var instance;
-    var createData = function () {
+    function createData() {
         CreateObjectsFromDB('CharactersDB.xml', 'character')
                 .then(function (data) {
                     characters = data;
                 })
                 .catch(function () {
-                    // An error occurred
-
+                   console.log("error loading file");
                 });
-        console.log("Data created.");
+        
         var getCharacters = function () {
             console.log("Getting character data.");
             return characters;
@@ -33,17 +32,17 @@ var objectsFromDB = (function () {
         return {
             characters: getCharacters
         };
-        
-    };
+    }
     return {
-            getInstance: function () {
-                if (!instance) {
-                    console.log("Creating new instance.");
-                    instance = createData();
-                }
-                return instance;
+        getInstance: function () {
+            if (!instance) {
+                console.log("Creating new instance.");
+                instance = createData();
             }
-        };
+            return instance;
+        }
+    };
+
 });
 function CreateObjectsFromDB(DBname, tagName) {
     return new Promise(function (resolve, reject) {
