@@ -148,17 +148,18 @@ body{
     margin-right: auto;
     margin-bottom: 4px;
     margin-top: 4px;
-    border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 .smallMapImage{
     height: auto; /* width of .record width */
-    max-width: 140px;
-    margin: 4px;
-    border-radius: 5px;
+    max-width: 135px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px;
     cursor: pointer;
     transition: 0.3s;
+    display: inline-block;
 }
 
 .smallMapImage:hover {opacity: 0.7;}
@@ -180,8 +181,10 @@ body{
     display: inline-block;
     font-family: Arial;
     float: none; 
-} 
-
+}
+.imgWrap{
+    text-align: center;
+}
 .toggleButton{
     background-color: lightcoral;
     cursor: pointer;

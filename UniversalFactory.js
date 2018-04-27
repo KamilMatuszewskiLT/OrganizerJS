@@ -65,14 +65,19 @@ function addFromXMLDB(target, DBname, tagName) {
                             record.appendChild(imgAndModal[1]);
                             break;
                         case "sublocations" :
+                            let imgWrapper = document.createElement("div");
+                            imgWrapper.setAttribute("class", "imgWrap");
                             let sublocations = myObj[i].attributes[j].nodeValue;
                             sublocations = sublocations.split(", ");
+                            
                             for (let k = 0; k < sublocations.length; k++) {
                                 console.log("Sublocation " + k + " : " + sublocations[k]);
                                 let imgAndModal = makeMapHref(sublocations[k], "sublocation");
-                                record.appendChild(imgAndModal[0]);
-                                record.appendChild(imgAndModal[1]);
+                                imgWrapper.appendChild(imgAndModal[0]);
+                                imgWrapper.appendChild(imgAndModal[1]);
                             }
+                            record.appendChild(imgWrapper);
+                            
                             break;
                         default:
                             var name = document.createElement("div");
@@ -135,17 +140,20 @@ function makeInputFilter(target, CONTAINER_CLASS_NAME) {
     filterInput.setAttribute("id", "input");
 
     filterInput.addEventListener("input", function () { // Filter data function.
-        var input, filter, ul, li, a, i;
+        var input, filter, ul, li, a, i, li2;
         input = filterInput;
         filter = input.value.toUpperCase();
         ul = document.getElementById(target);
         li = ul.getElementsByClassName(CONTAINER_CLASS_NAME);
+        li2 = ul.getElementsByClassName("content");
 
         // Loop through all list items, and hide those which don't match the search query
-        for (i = 0; i < li.length; i++) {
+        for (let i = 0; i < li.length; i++) {
             a = li[i];
             li[i].style.display = (a.innerHTML.toUpperCase().indexOf(filter) > -1 ? li[i].style.display = "" : li[i].style.display = "none");
         }
+        
+        
     });
     return filterInput;
 }
