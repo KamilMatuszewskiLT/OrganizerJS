@@ -10,6 +10,8 @@ and open the template in the editor.
 body{
     font-family: Arial;
 }
+
+
 #siteContent{
     border-left: dotted black 1px;
     border-right: dotted black 1px;
@@ -146,8 +148,23 @@ body{
     margin-right: auto;
     margin-bottom: 4px;
     margin-top: 4px;
-    border: dotted black 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
 }
+.smallMapImage{
+    height: auto; /* width of .record width */
+    max-width: 140px;
+    margin: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.smallMapImage:hover {opacity: 0.7;}
+
+.mapImage:hover {opacity: 0.7;}
+
 
 .buttonContainer {
     float: left;
@@ -195,15 +212,6 @@ body{
 .toggled{
     background-color: lightseagreen;
 }
-
- /* Style the Image Used to Trigger the Modal */
-.mapImage{
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.mapImage:hover {opacity: 0.7;}
 
 /* The Modal (background) */
 .modal {

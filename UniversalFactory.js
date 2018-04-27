@@ -57,21 +57,35 @@ function addFromXMLDB(target, DBname, tagName) {
                 record.setAttribute("class", RECORD_CLASS_NAME);
 
                 for (let j = 0; j < myObj[i].attributes.length; j++) { // Create an element for each XML attribute.
-                    if (myObj[i].attributes[j].nodeName === "image") {
-                        var imgAndModal = makeMapHref(myObj[i].attributes[j].nodeValue);
-                        record.appendChild(imgAndModal[0]);
-                        record.appendChild(imgAndModal[1]);
-                    } else {
-                        var name = document.createElement("div");
-                        name.setAttribute("class", "dataField");
-                        name.innerHTML = myObj[i].attributes[j].nodeValue;
-                        var nameD = document.createElement("div");
-                        nameD.setAttribute("class", "dataType");
-                        let nodeName = myObj[i].attributes[j].nodeName;
-                        nameD.innerHTML = nodeName.charAt(0).toUpperCase() + nodeName.slice(1) + ":"; // Capitalize each XML name.
 
-                        record.appendChild(nameD);
-                        record.appendChild(name);
+                    switch (myObj[i].attributes[j].nodeName) {
+                        case "image"  :
+                            let imgAndModal = makeMapHref(myObj[i].attributes[j].nodeValue, "location");
+                            record.appendChild(imgAndModal[0]);
+                            record.appendChild(imgAndModal[1]);
+                            break;
+                        case "sublocations" :
+                            let sublocations = myObj[i].attributes[j].nodeValue;
+                            sublocations = sublocations.split(", ");
+                            for (let k = 0; k < sublocations.length; k++) {
+                                console.log("Sublocation " + k + " : " + sublocations[k]);
+                                let imgAndModal = makeMapHref(sublocations[k], "sublocation");
+                                record.appendChild(imgAndModal[0]);
+                                record.appendChild(imgAndModal[1]);
+                            }
+                            break;
+                        default:
+                            var name = document.createElement("div");
+                            name.setAttribute("class", "dataField");
+                            name.innerHTML = myObj[i].attributes[j].nodeValue;
+                            var nameD = document.createElement("div");
+                            nameD.setAttribute("class", "dataType");
+                            let nodeName = myObj[i].attributes[j].nodeName;
+                            nameD.innerHTML = nodeName.charAt(0).toUpperCase() + nodeName.slice(1) + ":"; // Capitalize each XML name.
+
+                            record.appendChild(nameD);
+                            record.appendChild(name);
+                            break;
                     }
                 }
 
@@ -79,7 +93,7 @@ function addFromXMLDB(target, DBname, tagName) {
 
                 button.addEventListener("click", function () { // Open data in new window.
                     if (this.classList.contains("pop")) {
-                       // data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"><script src="UniversalFactory.js"></script></head><body>';
+                        // data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"><script src="UniversalFactory.js"></script></head><body>';
                         data = '<link rel="stylesheet" type="text/css" href="style.css">';
                         data += content.innerHTML;
                         //data += '</body></html>';
@@ -95,7 +109,7 @@ function addFromXMLDB(target, DBname, tagName) {
     document.getElementById(target).appendChild(chkbReset);
     document.getElementById(target).appendChild(allButtonsContainer);
     document.getElementById(target).appendChild(dataContainer);
-    
+
 
     var filterInput = makeInputFilter(target, CONTAINER_CLASS_NAME);
 
@@ -151,13 +165,22 @@ function makeToggleableButton() {
     return toggle;
 }
 
-function makeMapHref(link) {
+function makeMapHref(link, type) {
     var imgAndModal = [];
     var mapAElement = document.createElement("a");
     var href = document.createElement("img");
     href.setAttribute('src', 'images' + link);
-    href.setAttribute('class', 'mapImage');
-    
+    switch (type) {
+        case "location":
+            href.setAttribute('class', 'mapImage');
+            break;
+        case "sublocation":
+            href.setAttribute('class', 'smallMapImage');
+            break;
+        default:
+            console.log("Error: Unknown type in makeMapHref function.");
+    }
+    ;
     var modal = document.createElement("div");
     modal.setAttribute("class", "modal");
     var closeBtn = document.createElement("span");
@@ -165,7 +188,7 @@ function makeMapHref(link) {
     closeBtn.innerHTML = "&times;";
     var modalContent = document.createElement("img");
     modalContent.setAttribute("class", "modal-content");
-    
+
     href.onclick = function () {
         modal.style.display = "block";
         modalContent.src = this.src;
@@ -173,7 +196,7 @@ function makeMapHref(link) {
     closeBtn.onclick = function () {
         modal.style.display = "none";
     };
-    
+
     modal.appendChild(closeBtn);
     modal.appendChild(modalContent);
     mapAElement.appendChild(href);
@@ -182,17 +205,17 @@ function makeMapHref(link) {
     return  imgAndModal;
 }
 
-function makeChkbxReset(){
+function makeChkbxReset() {
     var reset = document.createElement("button");
-    reset.setAttribute("class","checkBoxResetButton");
-    reset.innerHTML="Reset";
-    reset.addEventListener("click", function(){
+    reset.setAttribute("class", "checkBoxResetButton");
+    reset.innerHTML = "Reset";
+    reset.addEventListener("click", function () {
         let checked = document.getElementsByClassName(CLICKED_CHECKBOX_CLASS_NAME);
-        console.log("This many checked " + (checked.length+1) );
-        for (let i = 0 ; i < checked.length ;){ // Don't increase the iterator (the "let i"), since the length decreases with each iteration, so it goes down to zero.
+        console.log("This many checked " + (checked.length + 1));
+        for (let i = 0; i < checked.length; ) { // Don't increase the iterator (the "let i"), since the length decreases with each iteration, so it goes down to zero.
             checked[i].click();
-           }
+        }
     });
-    
+
     return reset;
 }
