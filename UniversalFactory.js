@@ -59,6 +59,8 @@ function addFromXMLDB(target, DBname, tagName) {
                 for (let j = 0; j < myObj[i].attributes.length; j++) { // Create an element for each XML attribute.
 
                     switch (myObj[i].attributes[j].nodeName) {
+                        case "id" :
+                            break;
                         case "image"  :
                             let imgAndModal = makeMapHref(myObj[i].attributes[j].nodeValue, "location");
                             record.appendChild(imgAndModal[0]);
@@ -69,15 +71,14 @@ function addFromXMLDB(target, DBname, tagName) {
                             imgWrapper.setAttribute("class", "imgWrap");
                             let sublocations = myObj[i].attributes[j].nodeValue;
                             sublocations = sublocations.split(", ");
-                            
+
                             for (let k = 0; k < sublocations.length; k++) {
-                                console.log("Sublocation " + k + " : " + sublocations[k]);
                                 let imgAndModal = makeMapHref(sublocations[k], "sublocation");
                                 imgWrapper.appendChild(imgAndModal[0]);
                                 imgWrapper.appendChild(imgAndModal[1]);
                             }
                             record.appendChild(imgWrapper);
-                            
+
                             break;
                         default:
                             var name = document.createElement("div");
@@ -99,7 +100,7 @@ function addFromXMLDB(target, DBname, tagName) {
                 button.addEventListener("click", function () { // Open data in new window.
                     if (this.classList.contains("pop")) {
                         // data = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="style.css"><script src="UniversalFactory.js"></script></head><body>';
-                        data = '<link rel="stylesheet" type="text/css" href="style.css">';
+                        let data = '<link rel="stylesheet" type="text/css" href="style.css">';
                         data += content.innerHTML;
                         //data += '</body></html>';
                         dataInNewWindow(data);
@@ -125,9 +126,10 @@ function addFromXMLDB(target, DBname, tagName) {
 }
 
 function dataInNewWindow(data) {
-    var newWindow = window.open("", Math.random(), "width=800,height=400,scrollbars=1,resizable=1,channelmode=1, menubar=0"); // the "Math.random() is there, to open in a new window, although I guess there's still a chance that it returns the same number.
+    var newWindow = window.open("", "_blank", "width=800,height=400,scrollbars=1,resizable=1,channelmode=1, menubar=0"); 
     var content = "";
     content += data;
+    
     newWindow.document.open();
     newWindow.document.write(content);
     newWindow.document.close();
@@ -151,7 +153,7 @@ function makeInputFilter(target, CONTAINER_CLASS_NAME) {
         for (let i = 0; i < li.length; i++) {
             a = li[i];
             li[i].style.display = (a.innerHTML.toUpperCase().indexOf(filter) > -1 ? li[i].style.display = "" : li[i].style.display = "none");
-        }                
+        }
     });
     return filterInput;
 }
