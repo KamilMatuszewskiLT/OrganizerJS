@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 2018-04-09, 09:20:27
     Author     : Kamil Matuszewski
 */
+html{
+    
+}
 body{
     font-family: Arial;
 }
@@ -18,7 +21,8 @@ body{
     margin-left: 150px;
     padding-left: 50px;
     margin-right: 150px;
-    background-color: ghostwhite;
+    margin-top: 20px;
+    background:rgba(248, 248, 255, 0.85);
 }
 
 #PageTitle{
