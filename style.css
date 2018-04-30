@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Kamil Matuszewski
 */
 html{
-    
+
 }
 body{
     font-family: Arial;
@@ -16,13 +16,13 @@ body{
 
 
 #siteContent{
-    border-left: dotted black 1px;
-    border-right: dotted black 1px;
+    border-left: solid black 1px;
+    border-right: solid black 1px;
     margin-left: 150px;
     padding-left: 50px;
     margin-right: 150px;
     margin-top: 20px;
-    background:rgba(248, 248, 255, 0.85);
+    background:rgba(238, 238, 255, 0.85);
 }
 
 #PageTitle{
@@ -69,6 +69,8 @@ body{
 
 #dataContainer{
     clear:both;
+    float: none;
+    border-top: dotted 3px salmon;
 }
 
 #allButtonsContainer{
@@ -135,10 +137,10 @@ body{
     font-size: 16px;
     text-align: center;
     border-right: dotted 1px black;
-    width: 300px; /* width of .record - 24px */
+    width:93%;
 }
 .record{
-    width: 324px; /* width of .record + 24px */
+    width: 25%%; /* width of .record + 24px */
     margin: 4px;
     border: solid 1px black;
     background-color: antiquewhite;
@@ -177,6 +179,7 @@ body{
     margin: 4px;
     border: 1px solid black;
     padding-right: 2px;
+    width:24%;
 }
 
 
@@ -185,6 +188,7 @@ body{
     display: inline-block;
     font-family: Arial;
     float: none; 
+    width: 25%;
 }
 .imgWrap{
     text-align: center;
