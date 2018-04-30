@@ -151,9 +151,7 @@ function makeInputFilter(target, CONTAINER_CLASS_NAME) {
         for (let i = 0; i < li.length; i++) {
             a = li[i];
             li[i].style.display = (a.innerHTML.toUpperCase().indexOf(filter) > -1 ? li[i].style.display = "" : li[i].style.display = "none");
-        }
-        
-        
+        }                
     });
     return filterInput;
 }
